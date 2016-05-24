@@ -1,0 +1,1 @@
+default_app_config = 'pattern_generator.apps.pattern_generator_Config'
