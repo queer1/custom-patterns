@@ -1,44 +1,130 @@
 {% extends 'pattern_generator/base.html' %}
-{% include 'pattern_generator/dress_form.html' %}
 
 {% block content %}
-<div class="page-header">
+<div id="new-measurements-div">
         <a href="{% url 'new_measurements' %}" class="top-menu"><span class="glyphicon glyphicon-plus"><p>New Measurements</p></span></a>
 </div>
-	{% for measurements in measurements_QuerySet %}
-		<div>
-		<p> {{measurements}} </p>
+	<!-- {% for measurements in measurements_QuerySet %}
+		<div class="measurement-div">
+			<div class="dress-form">
+				<svg
+				   xmlns:dc="http://purl.org/dc/elements/1.1/"
+				   xmlns:cc="http://creativecommons.org/ns#"
+				   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+				   xmlns:svg="http://www.w3.org/2000/svg"
+				   xmlns="http://www.w3.org/2000/svg"
+				   width="200"
+				   height="450"
+				   viewBox="0 0 200 450"
+				   version="1.1">
+				  <defs
+				     id="defs5034" />
+				  <metadata
+				     id="metadata5037">
+				    <rdf:RDF>
+				      <cc:Work
+				         rdf:about="">
+				        <dc:format>image/svg+xml</dc:format>
+				        <dc:type
+				           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+				        <dc:title></dc:title>
+				      </cc:Work>
+				    </rdf:RDF>
+				  </metadata>
+				  <path
+					transform="translate(100,4) scale(.7,.7)"
+				    style="fill:#e3fff5;fill-rule:evenodd;stroke:#e3fff5;stroke-width:3px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+				    d = "{{ measurements }}"
+				    id="form1" />
+				</svg>
+			</div>
+			<div style="display:inline-block">
+				<table >
+					<tr>
+						<td>
+							Measurements (in)
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Shoulder Circumference: 
+						</td>
+						<td>
+							{{measurements.shoulders}}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Bust: 
+						</td>
+						<td>
+							{{measurements.bust}}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Underbust: 
+						</td>
+						<td>
+							{{measurements.underbust}}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Waist: 
+						</td>
+						<td>
+							{{measurements.waist}}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Hips: 
+						</td>
+						<td>
+							{{measurements.hip}}
+						</td>
+					</tr>
+				</table>
+			</div>
 		</div>
-		<svg
-		   xmlns:dc="http://purl.org/dc/elements/1.1/"
-		   xmlns:cc="http://creativecommons.org/ns#"
-		   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-		   xmlns:svg="http://www.w3.org/2000/svg"
-		   xmlns="http://www.w3.org/2000/svg"
-		   width="200"
-		   height="650"
-		   viewBox="0 0 200 650"
-		   id="svg5032"
-		   version="1.1">
-		  <defs
-		     id="defs5034" />
-		  <metadata
-		     id="metadata5037">
-		    <rdf:RDF>
-		      <cc:Work
-		         rdf:about="">
-		        <dc:format>image/svg+xml</dc:format>
-		        <dc:type
-		           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-		        <dc:title></dc:title>
-		      </cc:Work>
-		    </rdf:RDF>
-		  </metadata>
-		  <path
-			transform="translate(100,4)"
-		    style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
-		    d = "{{ measurements }}"
-		    id="form1" />
-		</svg>
+		
+	{% endfor %} -->
+
+	{% for pattern in pattern_QuerySet %}
+		{{pattern}}
+		<div class="pattern-div">
+			<svg
+			   xmlns:dc="http://purl.org/dc/elements/1.1/"
+			   xmlns:cc="http://creativecommons.org/ns#"
+			   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+			   xmlns:svg="http://www.w3.org/2000/svg"
+			   xmlns="http://www.w3.org/2000/svg"
+			   width="500"
+			   height="500"
+			   viewBox="0 0 500 500"
+			   version="1.1">
+			  <defs
+			     id="defs5034" />
+			  <metadata
+			     id="metadata5037">
+			    <rdf:RDF>
+			      <cc:Work
+			         rdf:about="">
+			        <dc:format>image/svg+xml</dc:format>
+			        <dc:type
+			           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+			        <dc:title></dc:title>
+			      </cc:Work>
+			    </rdf:RDF>
+			  </metadata>
+			  <path
+				transform="translate(30,30)scale(20,20)"
+			    style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+			    d = "{{ pattern }}"
+			    id="form1" />
+			</svg>
+		</div>
+		
 	{% endfor %}
 {% endblock %}
