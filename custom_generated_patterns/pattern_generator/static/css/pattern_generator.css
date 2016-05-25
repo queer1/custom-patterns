@@ -1,0 +1,116 @@
+body
+{
+	text-align: center;
+	margin: 0px;
+	padding: 0px;
+	background-image: url("squares.png");
+	background-size: 30%;
+    background-repeat: repeat;
+    font-family: 'Catamaran', sans-serif;
+	color: #00a86b;
+}
+div
+{
+	margin: 0px;
+	padding: 0px;
+}
+
+h1 
+{
+	margin: 0px;
+}
+
+.page-header
+{
+    font-family: 'Pacifico', cursive;
+	width: 100%;
+	font-size: 3vh;
+	margin: 0px;
+	padding-top: 2vh;
+	padding-bottom: 1vh;
+}
+
+.top-menu
+{
+	font-size: 2.5vh;
+}
+
+#new-measurements-div
+{
+	width: fit-content;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 1vw;
+	padding-right: 1vw;
+	background-color: #00a86b;
+	height: 4.5vh;
+	margin-bottom: 1vh;
+	padding-top: auto;
+	padding-bottom: auto;
+	box-shadow: 0.2vh 0.2vh 0.5vh #00a86b;
+}
+a
+{
+	text-shadow: 0.05vh 0.05vh 0.1vh #e3fff5;
+}
+/* unvisited link */
+a:link 
+{
+	text-decoration: none;
+    color: #e3fff5;
+}
+
+/* visited link */
+a:visited 
+{
+	text-decoration: none;
+    color: #e3fff5;
+}
+
+/* mouse over link */
+a:hover 
+{
+	text-decoration: none;
+    color: #e3fff5;
+}
+
+/* selected link */
+a:active 
+{
+	text-decoration: none;
+    color: #e3fff5;
+}
+
+
+.measurement-div
+{
+	text-align: center;
+	width: 45%;
+	height: 100%;
+	padding-left: 2%;
+	padding-right: 2%;
+	display: inline-block;
+}
+
+.dress-form
+{
+	display: inline-block;
+	text-align: center;
+	margin-top: 1vh;
+	margin-bottom: 1vh;
+	padding: 2vh;
+	background-color: #00a86b;
+	box-shadow: 0.2vh 0.2vh 0.5vh #00a86b;
+	width:fit-content;
+}
+
+
+table
+{
+	display: inline-block;
+	text-align: left;
+	margin-top: 3vh;
+	margin-bottom: auto;
+	margin-left: 2vw;
+	padding: 2vh;
+}
