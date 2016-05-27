@@ -75,8 +75,14 @@ class pattern(models.Model):
 	waist_arc = models.DecimalField(max_digits=5, decimal_places=3)#CF to SS along waist line
 	dart_placement = models.DecimalField(max_digits=5, decimal_places=3)
 	short = models.BooleanField() 
+	back_arc =  models.DecimalField(max_digits=5, decimal_places=3)
+	across_back =  models.DecimalField(max_digits=5, decimal_places=3)
+	back_neck =  models.DecimalField(max_digits=5, decimal_places=3)
+	center_back_length =  models.DecimalField(max_digits=5, decimal_places=3)
+	shoulder_slope_back = models.DecimalField(max_digits=5, decimal_places=3)
+
 	
-	def __unicode__(self):
+	def patternFront(self):
 		getcontext().prec = 7
 		ax = 0
 		ay = 0
@@ -90,10 +96,10 @@ class pattern(models.Model):
 		ey = self.full_length - Decimal(math.sqrt((pow(self.shoulder_slope, 2)-pow(cx, 2))))
 		fx = Decimal(math.sqrt(pow(self.shoulder_length, 2)-pow(cy, 2)))
 		fy = 0
-		gx = dy
-		gy = dy/(Decimal(math.tan(Decimal(math.pi)/2 + Decimal(math.atan(ey/(ex-fx))))))
-		hx = gx - 1/(Decimal(math.sqrt(2)))*2
-		hy = gy - 1/(Decimal(math.sqrt(2)))*2
+		gx = -dy/(Decimal(math.tan(Decimal(math.pi)/2 + Decimal(math.atan(ey/(ex-fx))))))
+		gy = dy
+		hx = gx + 1/((Decimal(math.sqrt(2)))*2)
+		hy = gy - 1/((Decimal(math.sqrt(2)))*2)
 		ix = self.across_shoulder
 		iy = ey + self.armhole_depth
 		jx = self.across_shoulder
@@ -129,9 +135,80 @@ class pattern(models.Model):
 		wy = sy - (self.waist_arc - self.dart_placement)*Decimal(math.sin( Decimal(math.atan((vy-sy) / (vx-sx)))))
 		xx = px + Decimal( math.cos( Decimal(math.atan((wy-py) / (wx-px))))) * Decimal(math.sqrt(pow(py-vy,2)+pow(px-vx,2)))
 		xy = py + Decimal( math.sin( Decimal(math.atan((wy-py) / (wx-px))))) * Decimal(math.sqrt(pow(py-vy,2)+pow(px-vx,2)))
-		print str(vx-ux) + "vx"
-		print str(vy-uy) + "vy"
 		yx = Decimal(1/8)
 		yy = Decimal(1/8)
-		return u"M %s,%s L %s,%s L %s,%s L %s,%s L %s,%s L %s,%s L %s,%s L %s,%s L %s,%s L %s,%s Z" % (bx, by, dx, dy, fx, fy, ex, ey, mx, my, tx, ty, sx, sy, xx, xy, px, py, vx, vy)
-		
+		return u"M %s,%s L %s,%s L %s,%s L %s,%s L %s,%s L %s,%s L %s,%s L %s,%s L %s,%s L %s,%s L %s,%s Z" % (bx, by, dx, dy, hx, hy, fx, fy, ex, ey, mx, my, tx, ty, sx, sy, xx, xy, px, py, vx, vy)
+	
+	def patternBack(self):
+		getcontext().prec = 7
+		ax = 0
+		ay = 0
+		bx = 0
+		by = self.full_length
+		cx = self.across_shoulder
+		cy = 0
+		dx = 0
+		dy = self.full_length - self.center_back_length
+		ex = self.waist_arc + Decimal(1.5)
+		ey = by
+		temp_gx = self.dart_placement
+		temp_gy = by
+		temp_hx = self.dart_placement + Decimal(1.5)
+		temp_hy = by
+		ix = self.dart_placement + Decimal(0.75)
+		iy = by
+		jx = 0
+		jy = self.full_length - self.side_seam_length
+		kx = self.back_arc + Decimal(0.125)
+		ky = jy
+		lx = ix
+		ly = jy
+		mx = lx
+		my = ly + Decimal(0.75)
+		gx = temp_gx - Decimal(math.cos(math.atan((temp_gy - my)/(temp_gx - mx)))*1/8)
+		gy = temp_gy + Decimal(math.sin(math.atan((temp_gy - my)/(temp_gx - mx)))*1/8)
+		hx = temp_hx + Decimal(math.cos(math.atan((temp_hy - my)/(temp_gx - mx)))*1/8)
+		hy = temp_hy - Decimal(math.sin(math.atan((temp_hy - my)/(temp_gx - mx)))*1/8) 
+		nx = cx
+		ny = self.full_length - Decimal(math.sqrt((pow(self.shoulder_slope_back, 2)-pow(cx, 2))))
+		ox = self.back_neck
+		oy = 0
+		px = dy/(Decimal(math.tan(Decimal(math.pi)/2 + Decimal(math.atan(ny/(ox-nx))))))
+		py = dy
+		qx = px - 1/(Decimal(math.sqrt(2)))*2
+		qy = py - 1/(Decimal(math.sqrt(2)))*2
+		rx = ox + Decimal(math.cos(math.atan(ny/(ox-nx)))*math.sqrt(pow(nx - ox, 2)+pow(ny, 2))/2)
+		ry = Decimal(-math.sin(math.atan(ny/(ox-nx)))*math.sqrt(pow(nx - ox, 2)+pow(ny, 2))/2)
+		sx = rx - Decimal(math.cos(math.atan((ry - my)/(rx-mx)))*3)
+		sy = ry - Decimal(math.sin(math.atan((ry - my)/(rx-mx)))*3)
+		temp_tx = ox + Decimal(math.cos(math.atan(ny/(ox-nx)))*(math.sqrt(pow(nx - ox, 2)+pow(ny, 2))/2 - 0.25))
+		temp_ty = - Decimal(math.sin(math.atan(ny/(ox-nx)))*(math.sqrt(pow(nx - ox, 2)+pow(ny, 2))/2- 0.25))
+		tx = temp_tx - Decimal(math.cos(math.atan((temp_ty - sy)/(temp_tx - sx)))*1/8)
+		ty = temp_ty + Decimal(math.sin(math.atan((temp_ty - sy)/(temp_tx - sx)))*1/8)
+		temp_ux = ox + Decimal(math.cos(math.atan(ny/(ox-nx)))*(math.sqrt(pow(nx - ox, 2)+pow(ny, 2))/2 + 0.25))
+		temp_uy = - Decimal(math.sin(math.atan(ny/(ox-nx)))*(math.sqrt(pow(nx - ox, 2)+pow(ny, 2))/2 + 0.25))
+		ux = temp_ux + Decimal(math.cos(math.atan((temp_uy - sy)/(temp_ux - sx)))*1/4)
+		uy = temp_uy + Decimal(math.sin(math.atan((temp_uy - sy)/(temp_ux - sx)))*1/4) 
+		vx = kx - Decimal(math.cos((kx - ex)/(ky - ey))*1/2)
+		vy = ky + Decimal(math.sin((kx - ex)/(ky - ey))*1/2)
+		wx = 0
+		wy = (jy-dy)/2 + Decimal(3/4) + dy
+		xx = self.across_back + Decimal(3/16)
+		xy = wy
+		thing = math.sqrt(pow(nx - ox, 2)+pow(ny, 2))
+		return u"M %s,%s L %s,%s L %s,%s L %s,%s L %s,%s L %s,%s L %s,%s L %s,%s L %s,%s L %s,%s L %s,%s L %s,%s L %s,%s L %s,%s Z" % (bx, by, dx, dy, qx, qy, ox, oy, tx, ty, sx, sy, ux, uy, nx, ny, xx, xy, vx, vy, ex, ey, hx, hy, mx, my, gx, gy)
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
